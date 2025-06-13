@@ -64,15 +64,16 @@ This project implements a topic management system with the following key feature
 
 1. Clone the repository:
 git clone https://github.com/galgreen1/finalProjTichnot
-cd finalProj2025
+
+cd finalProjTichnot
 
 
-2. Create necessary directories:
+3. Create necessary directories:
 bash
 mkdir -p html_files uploads out
 
 
-3. Compile the project:
+4. Compile the project:
 bash
 # Using javac
 javac -d out src/**/*.java

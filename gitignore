@@ -1,0 +1,8 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Compiled output
+out/
+target/
+*.class

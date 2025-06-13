@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph Visualization</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style type="text/css">
+        #graph {
+            width: 100%;
+            height: 100vh;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="graph"></div>
+    <script type="text/javascript">
+        // Create a network
+        var container = document.getElementById('graph');
+        
+        // Create nodes array
+        var nodes = new vis.DataSet([
+            { id: 'TA', label: 'A', shape: 'box', color: '#A5D6A7' },
+            { id: 'APlusAgent', label: 'PlusAgent', shape: 'circle', color: '#90CAF9' },
+            { id: 'TB', label: 'B', shape: 'box', color: '#A5D6A7' },
+            { id: 'TC', label: 'C', shape: 'box', color: '#A5D6A7' },
+            { id: 'AIncAgent', label: 'IncAgent', shape: 'circle', color: '#90CAF9' },
+            { id: 'TD', label: 'D', shape: 'box', color: '#A5D6A7' },
+            { id: 'TE', label: 'E', shape: 'box', color: '#A5D6A7' },
+        ]);
+        
+        // Create edges array
+        var edges = new vis.DataSet([
+            { from: 'TA', to: 'APlusAgent', arrows: 'to' },
+            { from: 'APlusAgent', to: 'TC', arrows: 'to' },
+            { from: 'TB', to: 'APlusAgent', arrows: 'to' },
+            { from: 'TC', to: 'AIncAgent', arrows: 'to' },
+            { from: 'AIncAgent', to: 'TD', arrows: 'to' },
+            { from: 'AIncAgent', to: 'TE', arrows: 'to' },
+            { from: 'TD', to: 'AIncAgent', arrows: 'to' },
+        ]);
+        
+        // Create data object
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        
+        // Create options object
+        var options = {
+            nodes: {
+                font: {
+                    size: 16,
+                    multi: true,
+                    face: 'Arial',
+                    color: '#333333'
+                },
+                size: 40,
+                borderWidth: 2,
+                shadow: true,
+                margin: 10
+            },
+            edges: {
+                width: 3,
+                color: {
+                    color: '#2B7CE9',
+                    highlight: '#1B4B99',
+                    hover: '#1B4B99'
+                },
+                smooth: {
+                    type: 'curvedCW',
+                    roundness: 0.2
+                },
+                arrows: {
+                    to: {
+                        enabled: true,
+                        scaleFactor: 1.5,
+                        type: 'arrow'
+                    }
+                },
+                shadow: true
+            },
+            physics: {
+                enabled: true,
+                solver: 'forceAtlas2Based',
+                forceAtlas2Based: {
+                    gravitationalConstant: -200,
+                    springLength: 300,
+                    springConstant: 0.05,
+                    damping: 0.4
+                },
+                stabilization: {
+                    enabled: true,
+                    iterations: 1000,
+                    updateInterval: 25
+                }
+            },
+            layout: {
+                improvedLayout: true,
+                hierarchical: {
+                    enabled: false
+                }
+            },
+            interaction: {
+                hover: true,
+                tooltipDelay: 200
+            }
+        };
+        
+        // Create the network
+        var network = new vis.Network(container, data, options);
+        
+        // Add event listeners for better interaction
+        network.on('stabilizationProgress', function(params) {
+            console.log('Stabilization progress:', params.iterations, '/', params.total);
+        });
+        
+        network.on('stabilizationIterationsDone', function() {
+            console.log('Stabilization finished');
+        });
+    </script>
+</body>
+</html>

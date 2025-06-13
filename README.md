@@ -63,9 +63,8 @@ This project implements a topic management system with the following key feature
 ### Installation
 
 1. Clone the repository:
-bash
-git clone <repository-url>
-cd tichnotmitkadm1
+git clone https://github.com/galgreen1/finalProjTichnot
+cd finalProj2025
 
 
 2. Create necessary directories:
